@@ -34,9 +34,12 @@ public class Affichage extends JPanel implements Observer {
         int h = getHeight();
         int w = getWidth();
 
+        final int yBaseTour = 7*h/8, yHautTour = h/8, hauteurDisque = (yBaseTour - yHautTour) / modele.getNbDisque();
+
+
         for (int i = 0; i < 3; i++ ){
-            g.drawLine((i+1) * w/16 + i*w/4, 7*h/8, (i+1) * w/16 + (i+1)*w/4, 7*h/8);
-            g.drawLine((i+1)* (3*w/16) + i * (w/8), 7*h/8,(i+1)* (3*w/16) + i * (w/8), h/8 );
+            g.drawLine((i+1) * w/16 + i*w/4, yBaseTour, (i+1) * w/16 + (i+1)*w/4, yBaseTour);
+            g.drawLine((i+1)* (3*w/16) + i * (w/8), yBaseTour,(i+1)* (3*w/16) + i * (w/8), yHautTour );
         }
 
 
@@ -46,11 +49,19 @@ public class Affichage extends JPanel implements Observer {
             try {
                 disques = modele.getDisques(i);
             } catch (TourInexistanteException e) {
-                e.printStackTrace();
+                e.printStackTrace();//erreur theoriquement impossible
             }
 
             for (int j = 0; j < disques.length; j++ ){
+                final int maxLargeur = ((i + 1) * w / 4);
+                final int largeurRetire = (int) ( (double) (maxLargeur) / (double) disques[j]) ;
+                final int xCoteGaucheTour = (i + 1) * w / 16 + i * w / 4;
 
+                g.setColor(Color.gray);
+                g.fillRect(xCoteGaucheTour + largeurRetire/4,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire/2 , hauteurDisque );
+
+                g.setColor(Color.black);
+                g.drawRect(xCoteGaucheTour + largeurRetire/4,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire/2 , hauteurDisque );
             }
 
         }
@@ -70,6 +81,6 @@ public class Affichage extends JPanel implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-
+        repaint();
     }
 }
