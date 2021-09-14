@@ -54,7 +54,8 @@ public class Affichage extends JPanel implements Observer {
 
             for (int j = 0; j < disques.length; j++ ){
                 final int maxLargeur = ((i + 1) * w / 4);
-                final int largeurRetire = (int) ( (double) (maxLargeur) / (double) disques[j]) ;
+                final int largeurMarche = (int) ((maxLargeur - (w/10)) /  (double) (modele.getNbDisque())) ;
+                final int largeurRetire = (int) ( (double) (largeurMarche) * (double) (modele.getNbDisque()+1 - disques[j])) ;
                 final int xCoteGaucheTour = (i + 1) * w / 16 + i * w / 4;
 
                 g.setColor(Color.gray);
