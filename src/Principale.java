@@ -1,3 +1,4 @@
+import controleurs.ControleurAffichage;
 import modeles.Tours;
 import vues.Affichage;
 
@@ -15,7 +16,12 @@ public class Principale {
 
         Tours modele = new Tours(4);
         Affichage vueTours = new Affichage(modele);
+
+        ControleurAffichage controleurAffichage = new ControleurAffichage(modele, vueTours);
+        vueTours.addMouseListener(controleurAffichage);
+
         modele.addObserver(vueTours);
+
         vueTours.setPreferredSize(new Dimension(500,500));
 
         contentPane.add(vueTours,BorderLayout.CENTER);
