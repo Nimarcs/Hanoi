@@ -68,7 +68,7 @@ public class Affichage extends JPanel implements Observer {
 
             for (int j = 0; j < disques.length; j++ ){
                 //largeur maximum d'une marche
-                final int maxLargeur = (i * w / 4);
+                final int maxLargeur =  (w / 4);
                 //largeur disponible pour chaque marche
                 final double largeurMarche = ((maxLargeur - (w/10.0)) /  (double) (modele.getNbDisque())) ;
                 //largeur retirer des marches pour faire les paliers
