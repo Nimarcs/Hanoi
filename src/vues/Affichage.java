@@ -53,16 +53,20 @@ public class Affichage extends JPanel implements Observer {
             }
 
             for (int j = 0; j < disques.length; j++ ){
+                //largeur maximum d'une marche
                 final int maxLargeur = ((i + 1) * w / 4);
-                final int largeurMarche = (int) ((maxLargeur - (w/10)) /  (double) (modele.getNbDisque())) ;
-                final int largeurRetire = (int) ( (double) (largeurMarche) * (double) (modele.getNbDisque()+1 - disques[j])) ;
+                //largeur disponible pour chaque marche
+                final double largeurMarche = ((maxLargeur - (w/10.0)) /  (double) (modele.getNbDisque())) ;
+                //largeur retirer des marches pour faire les paliers
+                final int largeurRetire = (int) (1.5* (largeurMarche) * (double) (modele.getNbDisque()+1 - disques[j])) ;
+                //valeur de x sur le cote gauche de la ième tour
                 final int xCoteGaucheTour = (i + 1) * w / 16 + i * w / 4;
 
                 g.setColor(Color.gray);
-                g.fillRect(xCoteGaucheTour + largeurRetire/4,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire/2 , hauteurDisque );
+                g.fillRect(xCoteGaucheTour + largeurRetire/2,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire , hauteurDisque );
 
                 g.setColor(Color.black);
-                g.drawRect(xCoteGaucheTour + largeurRetire/4,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire/2 , hauteurDisque );
+                g.drawRect(xCoteGaucheTour + largeurRetire/2,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire , hauteurDisque );
             }
 
         }
