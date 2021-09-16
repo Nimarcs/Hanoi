@@ -55,7 +55,7 @@ public class Affichage extends JPanel implements Observer {
         }
 
 
-        for (int i = 0; i < 3 ; i++){
+        for (int i = 1; i <= 3 ; i++){
             Integer[] disques = new Integer[0];
 
             try {
@@ -66,13 +66,13 @@ public class Affichage extends JPanel implements Observer {
 
             for (int j = 0; j < disques.length; j++ ){
                 //largeur maximum d'une marche
-                final int maxLargeur = ((i + 1) * w / 4);
+                final int maxLargeur = (i * w / 4);
                 //largeur disponible pour chaque marche
                 final double largeurMarche = ((maxLargeur - (w/10.0)) /  (double) (modele.getNbDisque())) ;
                 //largeur retirer des marches pour faire les paliers
                 final int largeurRetire = (int) (1.5* (largeurMarche) * (double) (modele.getNbDisque()+1 - disques[j])) ;
                 //valeur de x sur le cote gauche de la ième tour
-                final int xCoteGaucheTour = (i + 1) * w / 16 + i * w / 4;
+                final int xCoteGaucheTour = i * w / 16 + (i-1) * w / 4;
 
                 g.setColor(Color.gray);
                 g.fillRect(xCoteGaucheTour + largeurRetire/2,yBaseTour - ((j+1)*hauteurDisque) , maxLargeur - largeurRetire , hauteurDisque );

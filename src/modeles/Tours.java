@@ -14,7 +14,7 @@ public class Tours {
     /**
      * code de chaque tours
      */
-    static final public int tourGauche= 0, tourMilieu = 1, tourDroite = 2;
+    static final public int tourGauche= 1, tourMilieu = 2, tourDroite = 3;
 
     //variables
 
