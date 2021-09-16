@@ -57,11 +57,13 @@ public class ControleurAffichage extends MouseInputAdapter {
             int xMax = i * (affichage.getWidth()/3);
             //(w/3) = largeur d'une colonne
 
-            if (e.getButton() == 3){
-                derniereSelection = -1; //si on fait un click droit on deselectionne
-            } else {
-                if (xMin <= e.getX() && e.getX() < xMax) {
-                    selectionner(i);
+            if (!modele.avoirGagner()) {//bloque les mouvements si on a gagner
+                if (e.getButton() == 3) {
+                    derniereSelection = -1; //si on fait un click droit on deselectionne
+                } else {
+                    if (xMin <= e.getX() && e.getX() < xMax) {
+                        selectionner(i);
+                    }
                 }
             }
         }
