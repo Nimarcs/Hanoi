@@ -67,11 +67,19 @@ public class Tours extends Observable {
             tourDepart = null;
         }
 
-        if (toursExistent) {
+        if (toursExistent && !tourDepart.isEmpty()) {
             Integer disque = tourDepart.peek();
 
-            if (disque > tourArrive.peek())
-                throw new DisqueTropGrandException(disque, tourArrive.peek());
+
+            Integer valTourArrive;
+            if (tourArrive.isEmpty()){
+                valTourArrive = Integer.MAX_VALUE;//pas de disque donc on peut toujours poser
+            } else  {
+                 valTourArrive = tourArrive.peek();
+            }
+
+            if (disque > valTourArrive)
+                throw new DisqueTropGrandException(disque, valTourArrive);
 
             tourDepart.pop();
             tourArrive.push(disque);
