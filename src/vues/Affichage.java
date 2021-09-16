@@ -16,10 +16,17 @@ public class Affichage extends JPanel implements Observer {
 
     //attributs
 
+    /**
+     * modele du systeme (les tour de hanoi)
+     */
     private Tours modele;
 
     //constructeur
 
+    /**
+     * contructeur de l'affichage
+     * @param pModele modele du systeme (les tour de hanoi)
+     */
     public Affichage(Tours pModele){
         if (pModele == null)
             throw new NullPointerException();
@@ -27,6 +34,11 @@ public class Affichage extends JPanel implements Observer {
 
     }
 
+    /**
+     * methode appele a chaque fois que la fenetre est redimentione ou que repaint est appele
+     * ne pas appeler manuellement
+     * @param g Graphics
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
