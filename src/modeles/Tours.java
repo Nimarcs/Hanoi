@@ -33,6 +33,16 @@ public class Tours extends Observable {
      * @param n nombre de disque a mettre sur la tour de gauche si negatif prendra la valeur 0
      */
     public Tours(int n){
+        initialiserTours(n);
+    }
+
+    //methodes
+
+    /**
+     * methode appelée a chaque debut de partie pour initialiser les tours avec leur n disques
+     * @param n nombre de disque (a l'origine sur la tour de gauche)
+     */
+    public void initialiserTours(int n){
         tourG = new Stack<>();
         tourM = new Stack<>();
         tourD = new Stack<>();
@@ -46,7 +56,6 @@ public class Tours extends Observable {
         }
     }
 
-    //methodes
 
     /**
      * methode permettant de bouger des disques sur des tours
