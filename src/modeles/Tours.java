@@ -4,10 +4,10 @@ package modeles;
 import exceptions.DisqueTropGrandException;
 import exceptions.TourInexistanteException;
 
-import java.util.List;
+import java.util.Observable;
 import java.util.Stack;
 
-public class Tours {
+public class Tours extends Observable {
 
     //constantes
 
@@ -75,6 +75,8 @@ public class Tours {
 
             tourDepart.pop();
             tourArrive.push(disque);
+            setChanged();
+            notifyObservers();
         }
     }
 
