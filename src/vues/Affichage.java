@@ -34,6 +34,8 @@ public class Affichage extends JPanel implements Observer {
 
     }
 
+    //methodes
+
     /**
      * methode appele a chaque fois que la fenetre est redimentione ou que repaint est appele
      * ne pas appeler manuellement
@@ -84,8 +86,6 @@ public class Affichage extends JPanel implements Observer {
         }
 
     }
-
-    //methodes
 
     /**
      * This method is called whenever the observed object is changed. An
