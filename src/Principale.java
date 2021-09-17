@@ -1,4 +1,5 @@
 import controleurs.ControleurAffichage;
+import modeles.Jeu;
 import modeles.Tours;
 import vues.Affichage;
 
@@ -14,13 +15,14 @@ public class Principale {
         JPanel contentPane = (JPanel) frame.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        Tours modele = new Tours(4);
-        Affichage vueTours = new Affichage(modele);
+        Tours modeleTours = new Tours(4);
+        Affichage vueTours = new Affichage(modeleTours);
+        modeleTours.addObserver(vueTours);
+
+        Jeu modele = new Jeu(modeleTours);
 
         ControleurAffichage controleurAffichage = new ControleurAffichage(modele, vueTours);
         vueTours.addMouseListener(controleurAffichage);
-
-        modele.addObserver(vueTours);
 
         vueTours.setPreferredSize(new Dimension(500,500));
 

@@ -1,6 +1,7 @@
 package controleurs;
 
 import exceptions.DisqueTropGrandException;
+import modeles.Jeu;
 import modeles.Tours;
 import vues.Affichage;
 
@@ -14,7 +15,7 @@ public class ControleurAffichage extends MouseInputAdapter {
     /**
      * Tours de hanoi
      */
-    private Tours modele;
+    private Jeu modele;
 
     /**
      * classe d'affichage des 3 tours
@@ -35,7 +36,7 @@ public class ControleurAffichage extends MouseInputAdapter {
      * @param pModele modele des tours
      * @param pAffichage affichage des tours
      */
-    public ControleurAffichage(Tours pModele, Affichage pAffichage){
+    public ControleurAffichage(Jeu pModele, Affichage pAffichage){
         modele=pModele;
         affichage=pAffichage;
         derniereSelection = -1; //pas de selection au depart

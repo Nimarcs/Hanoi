@@ -61,9 +61,10 @@ public class Tours extends Observable {
      * methode permettant de bouger des disques sur des tours
      * @param tourDep code de la tour de depart
      * @param tourArr code de la tour d'arrive
+     * @return vrai si un deplacement a eu lieu, faux sinon
      * @throws DisqueTropGrandException disque non deplaçable a cet endroit
      */
-    public void bougerDisque(int tourDep, int tourArr) throws DisqueTropGrandException {
+    public boolean bougerDisque(int tourDep, int tourArr) throws DisqueTropGrandException {
         Stack<Integer> tourDepart ,tourArrive;
         boolean toursExistent = true;
 
@@ -94,7 +95,10 @@ public class Tours extends Observable {
             tourArrive.push(disque);
             setChanged();
             notifyObservers();
+            return true; // si on deplace
         }
+
+        return false; //si on ne deplace pas
     }
 
     /**
@@ -116,7 +120,7 @@ public class Tours extends Observable {
      * methode permettant de verifier si on a gagner le jeu
      * condition pour gagner
      * tous les disques doivent etre sur une tour autre que cette de depart
-     * @return
+     * @return vrai si je la victoire est atteinte, faux sinon
      */
     public boolean avoirGagner(){
         return tourG.empty() && (tourM.isEmpty() || tourD.isEmpty());
