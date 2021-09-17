@@ -54,6 +54,8 @@ public class Tours extends Observable {
         for (int i = nbDisque; i > 0; i--){
             tourG.push(i);
         }
+        setChanged();
+        notifyObservers();
     }
 
 

@@ -39,6 +39,8 @@ public class Jeu extends Observable {
         tours.initialiserTours(nbDisque);
         nbMouvement = 0;
         selection.setDerniereSelection(Selection.pasSelection);
+        setChanged();
+        notifyObservers();
     }
 
 
@@ -52,6 +54,8 @@ public class Jeu extends Observable {
         boolean aBouge = tours.bougerDisque(tourDep, tourArr);
         if (aBouge) {
             nbMouvement++;
+            setChanged();
+            notifyObservers();
         }
     }
 
