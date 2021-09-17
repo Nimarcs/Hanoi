@@ -72,7 +72,7 @@ public class Affichage extends JPanel implements Observer {
             }
 
             //affichage de la selection
-            if (selection.getDerniereSelection() != -1){
+            if (selection.getDerniereSelection() != Selection.pasSelection){
                 int i = selection.getDerniereSelection();
                 g.setColor(Color.red);
                 g.fillOval( i * w / 16 + (i - 1) * w / 4, yBaseTour + w/20, w/20, w/20);

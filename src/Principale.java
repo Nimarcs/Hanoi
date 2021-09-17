@@ -23,7 +23,7 @@ public class Principale {
         modeleTours.addObserver(vueTours);
         selection.addObserver(vueTours);
 
-        Jeu modele = new Jeu(modeleTours);
+        Jeu modele = new Jeu(modeleTours, selection);
 
         ControleurAffichage controleurAffichage = new ControleurAffichage(modele, vueTours, selection);
         vueTours.addMouseListener(controleurAffichage);

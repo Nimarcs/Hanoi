@@ -61,7 +61,7 @@ public class ControleurAffichage extends MouseInputAdapter {
 
             if (!modele.avoirGagner()) {//bloque les mouvements si on a gagner
                 if (e.getButton() == 3) {
-                    derniereSelection.setDerniereSelection(-1); //si on fait un click droit on deselectionne
+                    derniereSelection.setDerniereSelection(Selection.pasSelection); //si on fait un click droit on deselectionne
                 } else {
                     if (xMin <= e.getX() && e.getX() < xMax) {
                         selectionner(i);
@@ -79,11 +79,10 @@ public class ControleurAffichage extends MouseInputAdapter {
         if (x != derniereSelection.getDerniereSelection() && derniereSelection.getDerniereSelection() !=-1){
             try {
                 modele.bougerDisque(derniereSelection.getDerniereSelection(), x);
-                x= -1;
             } catch (DisqueTropGrandException e){
                 System.out.println("disque trop grand");
-                x=-1;
             }
+            x= Selection.pasSelection;
         }
         derniereSelection.setDerniereSelection(x);
 

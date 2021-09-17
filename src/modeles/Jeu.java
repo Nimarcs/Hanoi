@@ -17,12 +17,18 @@ public class Jeu extends Observable {
     private Tours tours;
 
     /**
+     * element selectionne actuellement
+     */
+    private Selection selection;
+
+    /**
      * contructeur de Jeu
      * @param pTours tour de hanoi
      */
-    public Jeu(Tours pTours){
+    public Jeu(Tours pTours, Selection selection){
         tours = pTours;
         nbMouvement = 0;
+        this.selection = selection;
     }
 
     /**
@@ -32,6 +38,7 @@ public class Jeu extends Observable {
     public void demarrerPartie(int nbDisque){
         tours.initialiserTours(nbDisque);
         nbMouvement = 0;
+        selection.setDerniereSelection(Selection.pasSelection);
     }
 
 

@@ -14,12 +14,14 @@ public class Selection extends Observable {
      */
     private int derniereSelection;
 
+    public static final int pasSelection = -1;
+
     /**
      * contructeur de selection
      * contruit avec -1 comme valeur (pas de selection)
      */
     public Selection(){
-        derniereSelection = -1;
+        derniereSelection = pasSelection;
     }
 
     public int getDerniereSelection() {
