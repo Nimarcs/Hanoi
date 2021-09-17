@@ -1,6 +1,7 @@
 package vues;
 
 import exceptions.TourInexistanteException;
+import modeles.Selection;
 import modeles.Tours;
 
 import javax.swing.*;
@@ -21,13 +22,17 @@ public class Affichage extends JPanel implements Observer {
      */
     private Tours modele;
 
+    private Selection selection;
+
     //constructeur
 
     /**
      * contructeur de l'affichage
      * @param pModele modele du systeme (les tour de hanoi)
      */
-    public Affichage(Tours pModele){
+    public Affichage(Tours pModele, Selection selection){
+        this.selection = selection;
+
         if (pModele == null)
             throw new NullPointerException();
         modele = pModele;
@@ -55,17 +60,25 @@ public class Affichage extends JPanel implements Observer {
             g.setFont(g.getFont().deriveFont((float) 50));
             g.setColor(Color.red);
             g.drawString("GG",w/3, h/2);
+
         } else {//sinon les tours
 
             final int yBaseTour = 7 * h / 8, yHautTour = h / 8, hauteurDisque = (yBaseTour - yHautTour) / modele.getNbDisque();
 
-
+            //affichage des "tours"
             for (int i = 0; i < 3; i++) {
                 g.drawLine((i + 1) * w / 16 + i * w / 4, yBaseTour, (i + 1) * w / 16 + (i + 1) * w / 4, yBaseTour);
                 g.drawLine((i + 1) * (3 * w / 16) + i * (w / 8), yBaseTour, (i + 1) * (3 * w / 16) + i * (w / 8), yHautTour);
             }
 
+            //affichage de la selection
+            if (selection.getDerniereSelection() != -1){
+                int i = selection.getDerniereSelection();
+                g.setColor(Color.red);
+                g.fillOval( i * w / 16 + (i - 1) * w / 4, yBaseTour + w/20, w/20, w/20);
+            }
 
+            //affichage des disques
             for (int i = 1; i <= 3; i++) {
                 Integer[] disques = new Integer[0];
 

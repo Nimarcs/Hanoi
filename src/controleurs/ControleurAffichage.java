@@ -2,6 +2,7 @@ package controleurs;
 
 import exceptions.DisqueTropGrandException;
 import modeles.Jeu;
+import modeles.Selection;
 import modeles.Tours;
 import vues.Affichage;
 
@@ -27,7 +28,7 @@ public class ControleurAffichage extends MouseInputAdapter {
      * valeur entre 1 et 3
      * (-1 pour pas de selection)
      */
-    private int derniereSelection;
+    private Selection derniereSelection;
 
     //constructeurs
 
@@ -36,10 +37,10 @@ public class ControleurAffichage extends MouseInputAdapter {
      * @param pModele modele des tours
      * @param pAffichage affichage des tours
      */
-    public ControleurAffichage(Jeu pModele, Affichage pAffichage){
+    public ControleurAffichage(Jeu pModele, Affichage pAffichage, Selection selection){
         modele=pModele;
         affichage=pAffichage;
-        derniereSelection = -1; //pas de selection au depart
+        derniereSelection = selection; //pas de selection au depart
     }
 
 
@@ -60,7 +61,7 @@ public class ControleurAffichage extends MouseInputAdapter {
 
             if (!modele.avoirGagner()) {//bloque les mouvements si on a gagner
                 if (e.getButton() == 3) {
-                    derniereSelection = -1; //si on fait un click droit on deselectionne
+                    derniereSelection.setDerniereSelection(-1); //si on fait un click droit on deselectionne
                 } else {
                     if (xMin <= e.getX() && e.getX() < xMax) {
                         selectionner(i);
@@ -75,15 +76,16 @@ public class ControleurAffichage extends MouseInputAdapter {
      * @param x numero de la tour selectionne (-1 : pas de tour)
      */
     private void selectionner(int x){
-        if (x != derniereSelection && derniereSelection !=-1){
+        if (x != derniereSelection.getDerniereSelection() && derniereSelection.getDerniereSelection() !=-1){
             try {
-                modele.bougerDisque(derniereSelection, x);
+                modele.bougerDisque(derniereSelection.getDerniereSelection(), x);
                 x= -1;
             } catch (DisqueTropGrandException e){
                 System.out.println("disque trop grand");
+                x=-1;
             }
         }
-        derniereSelection = x;
+        derniereSelection.setDerniereSelection(x);
 
     }
 }
