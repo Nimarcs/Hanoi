@@ -78,7 +78,7 @@ public class Jeu extends Observable {
             nbMouvement++;
 
             //si on a generer une solution
-            if (!(solutionM.size() == 0 || solutionD.size() == 0)) {
+            if (solutionGenerer()) {
 
                 //si on a fait le bon mouvement pour la tour de droite
                 if (tourDep == solutionD.get(0).getDep() && tourArr == solutionD.get(0).getArr()) {
@@ -101,6 +101,15 @@ public class Jeu extends Observable {
     }
 
     /**
+     * methode qui permet de savoir si la solution a ete genere
+     * si une solution est atteinte elle compte comme non generer
+     * @return vrai si la solution a ete genere, faux sinon
+     */
+    private boolean solutionGenerer(){
+        return (!(solutionM.size() == 0 || solutionD.size() == 0));
+    }
+
+    /**
      * methode permettant de verifier si on a gagner le jeu
      * condition pour gagner
      * tous les disques doivent etre sur une tour autre que cette de depart
@@ -115,15 +124,14 @@ public class Jeu extends Observable {
      */
     public void faireProchainMouvement(){
 
-        List<Mouvement> solution; //on resout avec la solution la plus rapide
-        if (solutionD.size() > solutionM.size()){
-            solution = solutionM;
-        } else{
-            solution = solutionD;
-        }
+        if (solutionGenerer()) {//si il n'y pas de solution on ne peut pas trouver le prochain mouvement
+            List<Mouvement> solution; //on resout avec la solution la plus rapide
+            if (solutionD.size() > solutionM.size()) {
+                solution = solutionM;
+            } else {
+                solution = solutionD;
+            }
 
-
-        if (solution.size() !=0) {//si il n'y pas de solution on ne peut pas trouver le prochain mouvement
             try {
                 bougerDisque(solution.get(0).getDep(), solution.get(0).getArr());
             } catch (DisqueTropGrandException e) {
