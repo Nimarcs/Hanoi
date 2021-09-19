@@ -35,9 +35,12 @@ public class Jeu extends Observable {
 
     /**
      * methode appele lorque l'on cherche a demarrer une nouvelle partie
+     * maximum de 25 disques (car deja realistiquement infaisable par un humain (33 million de mouvement necessaire)
      * @param nbDisque nombre de disque dans la prochaine partie
      */
     public void demarrerPartie(int nbDisque){
+        if (nbDisque > 25)
+            nbDisque = 25;
         tours.initialiserTours(nbDisque);
         nbMouvement = 0;
         selection.setDerniereSelection(Selection.pasSelection);

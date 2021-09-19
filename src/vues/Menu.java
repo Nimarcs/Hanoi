@@ -26,14 +26,15 @@ public class Menu extends JPanel implements Observer {
         insNumbDisque.addFocusListener(controleurMenu);
         this.add(insNumbDisque);
 
-        JButton btnNouvellePartie = new JButton("Nouvelle partie");
+        JButton btnNouvellePartie = new JButton("Nouvelle partie (Max:25 disques)");
         btnNouvellePartie.addActionListener(controleurMenu);
         this.add(btnNouvellePartie);
 
         String explication = "<html>Vous devez deplacer les disques de la tours de depart a l'une des deux autres tours <br>" +
                 "Vous devez respecter deux regles: <br><ul>" +
                 "<li> on ne peut deplacer qu'un disque a la fois </li>" +
-                "<li> un disque ne peut etre pose sur un disque de diametre inferieur </li></ul></html>";
+                "<li> un disque ne peut etre pose sur un disque de diametre inferieur </li></ul>" +
+                "Remarque:<br> La resolution de tours avec 25 disques necessite au minimum plus de 33 millions de mouvement.  </html>"; //  permet de separer legererment le texte du bord
         JLabel explicationLabel = new JLabel(explication);
         this.add(explicationLabel);
 
