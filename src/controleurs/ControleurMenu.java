@@ -64,7 +64,6 @@ public class ControleurMenu implements ActionListener, FocusListener {
      */
     @Override
     public void focusLost(FocusEvent e) {
-        System.out.println("ENORME");
         if (JTextField.class.equals( e.getSource().getClass())) {
 
             JTextField jtf = (JTextField) e.getSource();
