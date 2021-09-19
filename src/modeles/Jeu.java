@@ -4,6 +4,8 @@ import exceptions.DisqueTropGrandException;
 
 import java.util.Observable;
 
+import static java.lang.Thread.sleep;
+
 public class Jeu extends Observable {
 
     /**
@@ -67,6 +69,25 @@ public class Jeu extends Observable {
      */
     public boolean avoirGagner(){
         return tours.avoirGagner();
+    }
+
+    public void resolutionAuto(){
+        demarrerPartie(tours.getNbDisque());
+        resolutionRecursive(tours.getNbDisque(), Tours.tourGauche, Tours.tourDroite, Tours.tourMilieu);
+    }
+
+    public void resolutionRecursive(int n, int dep, int arr, int inter){
+        if (n == 1) {
+            try {
+                bougerDisque(dep, arr); //faire une liste ?
+            } catch (DisqueTropGrandException e){
+                e.printStackTrace();
+            }
+        }else {
+            resolutionRecursive(n-1, dep, inter, arr);
+            resolutionRecursive(1, dep, arr, inter);
+            resolutionRecursive(n-1, inter, arr, dep);
+        }
     }
 
     public int getNbMouvement() {

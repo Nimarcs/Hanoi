@@ -19,7 +19,7 @@ public class Menu extends JPanel implements Observer {
 
         this.modele = modele;
 
-        setLayout(new GridLayout(4,1));
+        setLayout(new GridLayout(5,1));
         setBackground(Color.LIGHT_GRAY);
 
         JTextField insNumbDisque = new JTextField("4");
@@ -41,6 +41,9 @@ public class Menu extends JPanel implements Observer {
         nombreLabel = new JLabel("Nombre de mouvement: " + this.modele.getNbMouvement());
         this.add(nombreLabel);
 
+        JButton btnResoudre = new JButton("resoudre");
+        btnResoudre.addActionListener(controleurMenu);
+        this.add(btnResoudre);
 
 
 
