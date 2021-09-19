@@ -39,10 +39,12 @@ public class ControleurMenu implements ActionListener, FocusListener {
         if (JButton.class.equals( e.getSource().getClass())) {
             JButton button = (JButton) e.getSource();
             if (Objects.equals( button.getText(), "resoudre")){
-                modele.resolutionAuto();
-            } else{
-                // si c'est un JButton alors on demarre une autre partie
-                modele.demarrerPartie(this.nbDisque);
+                modele.resolutionAuto(true);//on veut resoudre intantanement le probleme
+            } else if (Objects.equals( button.getText(), "prochain mouvement (triche)")) {
+                modele.faireProchainMouvement();
+            }else{
+                // sinon c'est le bouton pour demarrer une autre partie
+                modele.demarrerPartie(this.nbDisque, true);
             }
         }
     }
