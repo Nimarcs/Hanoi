@@ -26,10 +26,14 @@ public class Jeu extends Observable {
     private Selection selection;
 
     /**
-     * liste de mouvement permettant de resoudre la solution
+     * liste de mouvement permettant de resoudre la solution sur la tour de droite
      */
-    private List<Mouvement> solution;
+    private List<Mouvement> solutionD;
 
+    /**
+     * liste de mouvement permettant de resoudre la solution sur la tour du milieu
+     */
+    private List<Mouvement> solutionM;
 
     /**
      * contructeur de Jeu
@@ -53,7 +57,8 @@ public class Jeu extends Observable {
         tours.initialiserTours(nbDisque);
         nbMouvement = 0;
         selection.setDerniereSelection(Selection.pasSelection);
-        solution = new LinkedList<>();
+        solutionD = new LinkedList<>();
+        solutionM = new LinkedList<>();
         if (genereSolution)
             resolutionAuto(false);//genere la liste de solution
         setChanged();
@@ -72,12 +77,24 @@ public class Jeu extends Observable {
         if (aBouge) {
             nbMouvement++;
 
-            //si on a fait le bon mouvement
-            if (tourDep == solution.get(0).getDep() && tourArr == solution.get(0).getArr()){
-                solution.remove(0);//on retire le mouvement de la liste des mouvement a faire
-            } else {
-                solution.add(0, new Mouvement(tourDep, tourArr).inverse());//sinon on ajoute le mouvement contraire
+            //si on a generer une solution
+            if (!(solutionM.size() == 0 || solutionD.size() == 0)) {
+
+                //si on a fait le bon mouvement pour la tour de droite
+                if (tourDep == solutionD.get(0).getDep() && tourArr == solutionD.get(0).getArr()) {
+                    solutionD.remove(0);//on retire le mouvement de la liste des mouvement a faire
+                } else {
+                    solutionD.add(0, new Mouvement(tourDep, tourArr).inverse());//sinon on ajoute le mouvement contraire
+                }
+
+                //si on a fait le bon mouvement pour la tour du milieu
+                if (tourDep == solutionM.get(0).getDep() && tourArr == solutionM.get(0).getArr()) {
+                    solutionM.remove(0);//on retire le mouvement de la liste des mouvement a faire
+                } else {
+                    solutionM.add(0, new Mouvement(tourDep, tourArr).inverse());//sinon on ajoute le mouvement contraire
+                }
             }
+
             setChanged();
             notifyObservers();
         }
@@ -97,6 +114,15 @@ public class Jeu extends Observable {
      * methode qui permet de faire le prochain mouvement conseille
      */
     public void faireProchainMouvement(){
+
+        List<Mouvement> solution; //on resout avec la solution la plus rapide
+        if (solutionD.size() > solutionM.size()){
+            solution = solutionM;
+        } else{
+            solution = solutionD;
+        }
+
+
         if (solution.size() !=0) {//si il n'y pas de solution on ne peut pas trouver le prochain mouvement
             try {
                 bougerDisque(solution.get(0).getDep(), solution.get(0).getArr());
@@ -113,9 +139,13 @@ public class Jeu extends Observable {
      * @param estInstantane si vrai alors la resolution sera instantane sinon elle generera juste la liste solution
      */
     public void resolutionAuto(boolean estInstantane){
-        if (estInstantane)
+        if (estInstantane) {
             demarrerPartie(tours.getNbDisque(), false);
-        resolutionRecursive(tours.getNbDisque(), Tours.tourGauche, Tours.tourDroite, Tours.tourMilieu, (!estInstantane));
+            resolutionRecursive(tours.getNbDisque(), Tours.tourGauche, Tours.tourDroite, Tours.tourMilieu, (!estInstantane),null );
+        } else {
+            resolutionRecursive(tours.getNbDisque(), Tours.tourGauche, Tours.tourDroite, Tours.tourMilieu, (!estInstantane), solutionD );
+            resolutionRecursive(tours.getNbDisque(), Tours.tourGauche, Tours.tourMilieu, Tours.tourDroite, (!estInstantane), solutionM );
+        }
     }
 
     /**
@@ -126,7 +156,7 @@ public class Jeu extends Observable {
      * @param inter numero de la tour intermediaire
      * @param doitGenererListe booleen vrai dans le cas ou l'on a besoin de generer la liste des mouvements pour resoudre, faux dans le cas ou l'on veut juste faire les mouvements
      */
-    public void resolutionRecursive(int n, int dep, int arr, int inter, boolean doitGenererListe){
+    public void resolutionRecursive(int n, int dep, int arr, int inter, boolean doitGenererListe, List<Mouvement> solution){
         if (n == 1) {
             if (doitGenererListe){
                 solution.add(new Mouvement(dep, arr));
@@ -138,11 +168,11 @@ public class Jeu extends Observable {
                 }
             }
         }else {
-            resolutionRecursive(n-1, dep, inter, arr, doitGenererListe);
+            resolutionRecursive(n-1, dep, inter, arr, doitGenererListe, solution);
             //on deplace tous les disque sauf le plus grand de la tour de depart a la tour intermediaire
-            resolutionRecursive(1, dep, arr, inter, doitGenererListe);
+            resolutionRecursive(1, dep, arr, inter, doitGenererListe, solution);
             //puis on deplace le plus grand disque a l'arrive
-            resolutionRecursive(n-1, inter, arr, dep, doitGenererListe);
+            resolutionRecursive(n-1, inter, arr, dep, doitGenererListe, solution);
             //puis on repose tous les autres disque par dessus
         }
     }

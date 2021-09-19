@@ -44,4 +44,12 @@ public class Mouvement {
     public int getDep() {
         return dep;
     }
+
+    @Override
+    public String toString() {
+        return "Mouvement{" +
+                "dep=" + dep +
+                ", arr=" + arr +
+                '}';
+    }
 }
